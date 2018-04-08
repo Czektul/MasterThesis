@@ -1,0 +1,10 @@
+﻿{
+  "DescriptionPage": "Description of your website.",
+  "ContactPage": "Contact page",
+  "HomePage": "Home Page",
+  "Register": "Register",
+  "UserName": "User name",
+  "Password": "Password",
+  "NoUserNameError": "User name not provided",
+  "NoPasswordError": "Password not provided"
+}

@@ -1,0 +1,10 @@
+﻿{
+  "DescriptionPage": "Strona opisu Twojej aplikacji.",
+  "ContactPage": "Strona kontaktowa.",
+  "HomePage": "Strona Główna",
+  "Register": "Rejestracja",
+  "UserName": "Nazwa użytkownika",
+  "Password": "Hasło",
+  "NoUserNameError": "Nie podano nazwy użytkownika",
+  "NoPasswordError": "Nie podano hasła użytkownika"
+}
