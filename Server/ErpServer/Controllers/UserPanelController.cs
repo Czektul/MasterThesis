@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace ErpServer.Controllers
         [HttpPost]
         public IActionResult RegisterNewUser()
         {
+            List<string> values = new List<string>();
             try
             {
                 //Login
@@ -56,10 +58,16 @@ namespace ErpServer.Controllers
                                     iterationCount: 10000,
                                     numBytesRequested: 256 / 8));
 
-
+                    
+                
                 Error = false;
             }
-            catch(Exception ex)
+            catch (InvalidCastException ex)
+            {
+                Error = true;
+                ErrorMessage = ex.Message;
+            }
+            catch (Exception ex)
             {
                 Error = true;
                 ErrorMessage = ex.Message;

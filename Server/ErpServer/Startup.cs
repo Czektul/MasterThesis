@@ -16,6 +16,8 @@ namespace ErpServer
 {
     public class Startup
     {
+
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -44,8 +46,9 @@ namespace ErpServer
                     // UI strings that we have localized.
                     opts.SupportedUICultures = supportedCultures;
                 });
-            //DB connection
-            var connection = @"Server=DESKTOP-TRNJHOC;Database=ERP_Database;Trusted_Connection=True;";
+
+            //DB ConnectionString
+            var connection = @"Server=DESKTOP-TRNJHOC;Database=ERP_Database;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ERP_DatabaseContext>(options => options.UseSqlServer(connection));
 
         }

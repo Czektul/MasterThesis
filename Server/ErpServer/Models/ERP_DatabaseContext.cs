@@ -8,7 +8,12 @@ namespace ErpServer.Models
     {
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        
+
+        public ERP_DatabaseContext(DbContextOptions<ERP_DatabaseContext> options): base(options)
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Permission>(entity =>
@@ -36,10 +41,6 @@ namespace ErpServer.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
             });
-        }
-        public ERP_DatabaseContext(DbContextOptions<ERP_DatabaseContext> options): base(options)
-        {
-
         }
     }
 }
