@@ -38,8 +38,13 @@ namespace ServerApp.Controllers
 
         [HttpGet("user/{id}")]
         public string GetUser(int id)
-        {            
+        {
             return Newtonsoft.Json.JsonConvert.SerializeObject(users.FirstOrDefault(u => u.GetId() == id));
+        }
+        [HttpGet("user")]
+        public string GetUsers()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(users);
         }
 
         [HttpGet("project/{id}")]

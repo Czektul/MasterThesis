@@ -25,7 +25,7 @@ namespace ClientApp
 
         private void btnGetUsers_Click(object sender, EventArgs e)
         {
-            User user;
+            User[] user;
             string url = string.Format("http://localhost:51412/api/values/user/{0}", textBox1.Text.ToString()); //JKRze - porpawic 
 
             using (var w = new WebClient())
@@ -39,12 +39,28 @@ namespace ClientApp
                 catch (Exception) { }
                 // if string with JSON data is not empty, deserialize it to class and return its instance 
 
-                user = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(json_data, new UserConverter());
-                lblFirstName.Text = user.FirstName;
+                user = Newtonsoft.Json.JsonConvert.DeserializeObject<User[]>(json_data, new UserConverter());
+                /*lblFirstName.Text = user.FirstName;
                 lblId.Text = user.Id.ToString();
                 lblLastName.Text = user.LastName;
                 lblName.Text = user.Name;
-                lblRoom.Text = user.Room.Code;
+                lblRoom.Text = user.Room.Code;*/
+                bindingSource1.Clear();
+                foreach (User u in user)
+                    gridList.Add(u);
+                bindingSource1 = new BindingSource(gridList, null);
+
+
+                tableModel1.Rows.Clear();
+                for (int i  = 0; i < user.Count(); i++)
+                {
+                    tableModel1.Rows.Add(new XPTable.Models.Row());
+                    tableModel1.Rows[i].Cells.Add(new XPTable.Models.Cell(user[i].Id.ToString()));
+                    tableModel1.Rows[i].Cells.Add(new XPTable.Models.Cell(user[i].Name));
+                    tableModel1.Rows[i].Cells.Add(new XPTable.Models.Cell(user[i].FirstName));
+                    tableModel1.Rows[i].Cells.Add(new XPTable.Models.Cell(user[i].LastName));
+
+                }
             }
 
 
