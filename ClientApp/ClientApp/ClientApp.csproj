@@ -89,6 +89,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RESTLib\RESTLib.csproj">
+      <Project>{d7beedc2-6b87-4ed2-9d61-e0bf87074f98}</Project>
+      <Name>RESTLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XPTable\XPTable.csproj">
       <Project>{1ADD2ECB-2B24-4162-8965-3EFAA9BB041E}</Project>
       <Name>XPTable</Name>
