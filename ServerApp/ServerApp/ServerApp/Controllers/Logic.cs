@@ -105,11 +105,14 @@ namespace ServerApp.Controllers
                     {
                         while (reader.Read())
                         {
-                            rooms.Add(
-                                new Room(
+                            rooms.Add
+                            (
+                                new Room
+                                (
                                     (int)reader["Id"], 
-                                    (string)reader["Number"])
-                                    );
+                                    (string)reader["Number"]
+                                )
+                            );
                         }
                     }
                     connection.Close();
@@ -200,7 +203,44 @@ namespace ServerApp.Controllers
             catch (Exception ex)
             {
             }
-
         }
+
+
+        public bool AddUser(string newuser)
+        {
+            User user = (User)Newtonsoft.Json.JsonConvert.DeserializeObject<User>(newuser); ;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection())
+                {
+                    connection.ConnectionString = Configuration.ConnectionString;
+                    connection.Open();
+
+                    SqlCommand command = connection.CreateCommand();
+                    command.CommandType = CommandType.Text;
+
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandText = string.Format("INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ({0}, {1}, {2}, {3}});", user.Name, user.FirstName, user.LastName, user.Room.Id);
+                        command.ExecuteNonQuery();
+
+                        transaction.Commit();
+                    }
+                    
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ClientApp
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// Wymagana zmienna projektanta.
@@ -39,6 +39,7 @@
             this.gcFirstName = new XPTable.Models.TextColumn();
             this.gcLastName = new XPTable.Models.TextColumn();
             this.tableModel1 = new XPTable.Models.TableModel();
+            this.btnAddUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             this.SuspendLayout();
@@ -62,7 +63,7 @@
             // 
             // form1BindingSource
             // 
-            this.form1BindingSource.DataSource = typeof(ClientApp.Form1);
+            this.form1BindingSource.DataSource = typeof(ClientApp.Main);
             // 
             // table1
             // 
@@ -98,16 +99,27 @@
             // 
             this.gcLastName.Text = "LastName";
             // 
-            // Form1
+            // btnAddUser
+            // 
+            this.btnAddUser.Location = new System.Drawing.Point(456, 14);
+            this.btnAddUser.Name = "btnAddUser";
+            this.btnAddUser.Size = new System.Drawing.Size(98, 23);
+            this.btnAddUser.TabIndex = 9;
+            this.btnAddUser.Text = "Nowy użytkownik";
+            this.btnAddUser.UseVisualStyleBackColor = true;
+            this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.table1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnGetUsers);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "PRACA MAGISTERSKA";
+            this.Text = "PRACA MAGISTERSKA";
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).EndInit();
             this.ResumeLayout(false);
@@ -127,6 +139,7 @@
         private XPTable.Models.TextColumn gcName;
         private XPTable.Models.TextColumn gcFirstName;
         private XPTable.Models.TextColumn gcLastName;
+        private System.Windows.Forms.Button btnAddUser;
     }
 }
 

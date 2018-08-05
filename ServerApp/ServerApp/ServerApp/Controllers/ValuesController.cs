@@ -59,10 +59,15 @@ namespace ServerApp.Controllers
             return rooms.FirstOrDefault(u => u.GetId() == id);
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        // POST api/values/user
+        [HttpPost("user")]
+        public bool Post([FromBody]string newUser)
         {
+            if(!logic.AddUser(newUser))
+            {
+                return false;
+            }
+            return true;
         }
 
         // PUT api/values/5
