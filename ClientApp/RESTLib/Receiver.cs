@@ -15,7 +15,6 @@ namespace RESTLib
         public Receiver(string adress)
         {
             Address = adress;
-
         }
 
         public T[] ReceiveData<T>(string method, string[] parameters, bool isArray)

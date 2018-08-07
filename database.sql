@@ -23,9 +23,9 @@ CREATE TABLE ProjectsUsers(
 )
 
 
-INSERT INTO Users (Name, FirstName, LastName, 1) VALUES ('mkowalski', 'Marek', 'Kowalski');
-INSERT INTO Users (Name, FirstName, LastName, 1) VALUES ('jkoziol', 'Joanna', 'Kozioł');
-INSERT INTO Users (Name, FirstName, LastName, 2) VALUES ('lmakowski', 'Leszek', 'Makowski');
+INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('mkowalski', 'Marek', 'Kowalski', 1);
+INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('jkoziol', 'Joanna', 'Kozioł', 1);
+INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('lmakowski', 'Leszek', 'Makowski', 2);
 
 INSERT INTO Rooms (Number) VALUES ('1');
 INSERT INTO Rooms (Number) VALUES ('2');

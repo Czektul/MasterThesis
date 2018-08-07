@@ -206,9 +206,9 @@ namespace ServerApp.Controllers
         }
 
 
-        public bool AddUser(string newuser)
+        public bool AddUser(User newuser)
         {
-            User user = (User)Newtonsoft.Json.JsonConvert.DeserializeObject<User>(newuser); ;
+            User user = newuser;
             try
             {
                 using (SqlConnection connection = new SqlConnection())
@@ -222,7 +222,7 @@ namespace ServerApp.Controllers
                     using (SqlTransaction transaction = connection.BeginTransaction())
                     {
                         command.Transaction = transaction;
-                        command.CommandText = string.Format("INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ({0}, {1}, {2}, {3}});", user.Name, user.FirstName, user.LastName, user.Room.Id);
+                        command.CommandText = string.Format("INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('{0}', '{1}', '{2}', {3});", user.Name, user.FirstName, user.LastName, user.Room.Id);
                         command.ExecuteNonQuery();
 
                         transaction.Commit();

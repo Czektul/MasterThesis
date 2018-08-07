@@ -74,6 +74,7 @@
             this.table1.TabIndex = 8;
             this.table1.TableModel = this.tableModel1;
             this.table1.Text = "table1";
+            this.table1.SelectionChanged += new XPTable.Events.SelectionEventHandler(this.table1_SelectionChanged);
             // 
             // columnModel1
             // 
@@ -118,7 +119,7 @@
             this.Controls.Add(this.table1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnGetUsers);
-            this.Name = "PRACA MAGISTERSKA";
+            this.Name = "Main";
             this.Text = "PRACA MAGISTERSKA";
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).EndInit();

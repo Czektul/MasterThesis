@@ -13,19 +13,22 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using XPTable.Models;
 
 namespace ClientApp
 {
     public partial class Main : Form
     {
-        BindingList<User> gridList = new BindingList<User>();
+        List<User> users;
         private BindingSource bindingSource1 = new BindingSource();
         Receiver receiver;
-        
+
+        User selectedUser;
         public Main()
         {
             InitializeComponent();
-            receiver = new Receiver("http://localhost:51412/api/values");
+            receiver = new Receiver("http://localhost:50042/api/values");
+            users = new List<User>();
         }
 
         private void btnGetUsers_Click(object sender, EventArgs e)
@@ -54,6 +57,7 @@ namespace ClientApp
                 tableModel1.Rows.Clear();
                 for (int i = 0; i < user.Count(); i++)
                 {
+                    users.Add(user[i]);
                     tableModel1.Rows.Add(new XPTable.Models.Row());
                     tableModel1.Rows[i].Cells.Add(new XPTable.Models.Cell(user[i].Id.ToString()));
                     tableModel1.Rows[i].Cells.Add(new XPTable.Models.Cell(user[i].Name));
@@ -69,8 +73,27 @@ namespace ClientApp
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-            UserDialog dialog = new UserDialog();
+
+            UserDialog dialog;
+            if (selectedUser == null)
+            {
+                dialog = new UserDialog();
+            }
+            else
+            {
+                dialog = new UserDialog(selectedUser);
+            }
+
             dialog.Show();
+        }
+
+        private void table1_SelectionChanged(object sender, XPTable.Events.SelectionEventArgs e)
+        {
+            foreach (Row row in table1.SelectedItems)
+            {
+                selectedUser = users.FirstOrDefault(u => u.Id == (int.Parse(row.Cells[0].Text)));
+
+            }
         }
     }
 }

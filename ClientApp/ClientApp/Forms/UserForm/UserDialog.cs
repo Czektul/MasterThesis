@@ -4,18 +4,22 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjectClasses.Classes;
+using RESTLib;
 
 namespace ClientApp.Forms.UserForm
 {
     public partial class UserDialog : Form
     {
         public User user;
+        public Room[] rooms;
+        Receiver receiver;
 
         public UserDialog()
         {
@@ -24,6 +28,11 @@ namespace ClientApp.Forms.UserForm
             tbFirstName.Text = string.Empty;
             tbLastName.Text = string.Empty;
             tbName.Text = string.Empty;
+
+            receiver = new Receiver("http://localhost:50042/api/values");
+            rooms = receiver.ReceiveData<Room>("room", new string[0], true);
+            cbxRoom.DataSource = rooms;
+            cbxRoom.DisplayMember = "Room.Id";
 
             this.button1.Click += new System.EventHandler(this.AddNew);
         }
@@ -35,31 +44,30 @@ namespace ClientApp.Forms.UserForm
             tbFirstName.Text = user.FirstName;
             tbLastName.Text = user.LastName;
             tbName.Text = user.Name;
+            receiver = new Receiver("http://localhost:50042/api/values");
+            rooms = receiver.ReceiveData<Room>("room", new string[0], true);
+            cbxRoom.Items.AddRange(rooms);
             cbxRoom.SelectedItem = user.Room;
             this.button1.Click += new System.EventHandler(this.SaveChanges);
         }
 
         private void SaveChanges(object sender, EventArgs e)
-        {/*
-            User[] user;
+        {
+            string url = "http://localhost:50042/api/values/";
+            string data = string.Empty;
+            Sender poster = new Sender(url);
 
-            var values = new NameValueCollection();
+            user.Name = tbName.Text;
+            user.FirstName = tbFirstName.Text;
+            user.LastName = tbLastName.Text;
+            user.Room = cbxRoom.SelectedValue as Room;
 
-            string[] parameters = new string[0];
-            bool isArray;
-            if (textBox1.Text.ToString() != string.Empty)
-            {
-                parameters = new string[1] { textBox1.Text.ToString() };
-                isArray = false;
-            }
-            else
-                isArray = true;
-
-
-            user = receiver.ReceiveData<User>("user", parameters, isArray);*/
         }
         private void AddNew(object sender, EventArgs e)
         {
+            string url = "http://localhost:50042/api/values/";
+            string data = string.Empty;
+            Sender poster = new Sender(url);
             User user = new User
             {
                 Name = tbName.Text,
@@ -68,16 +76,14 @@ namespace ClientApp.Forms.UserForm
                 Room = cbxRoom.SelectedValue as Room
             };
 
-            using (var client = new WebClient())
+            if(poster.SendData("user", user, false))
             {
-                var values = new NameValueCollection();
-                values["user"] = Newtonsoft.Json.JsonConvert.SerializeObject(user);
-
-                client. = "application/json";
-
-                var response = client.UploadValues("http://localhost:51412/api/values/user/", values);
-
-                var responseString = Encoding.Default.GetString(response);
+                MessageBox.Show("Poprawnie wysłano dane");
+            
+            }
+            else
+            {
+                MessageBox.Show("Błąd wysyłania danych");
             }
         }
 

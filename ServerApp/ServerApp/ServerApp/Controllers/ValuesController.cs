@@ -54,14 +54,19 @@ namespace ServerApp.Controllers
         }
 
         [HttpGet("room/{id}")]
-        public Room GetRooms(int id)
+        public string GetRooms(int id)
         {
-            return rooms.FirstOrDefault(u => u.GetId() == id);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(rooms.FirstOrDefault(u => u.GetId() == id));
+        }
+        [HttpGet("room")]
+        public string GetRooms()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(rooms);
         }
 
         // POST api/values/user
         [HttpPost("user")]
-        public bool Post([FromBody]string newUser)
+        public bool Post([FromBody]User newUser)
         {
             if(!logic.AddUser(newUser))
             {

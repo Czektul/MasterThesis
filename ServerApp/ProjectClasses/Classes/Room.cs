@@ -10,9 +10,9 @@ namespace ProjectClasses.Classes
 {
     public class Room
     {
-        public int Id;
-        public string Code;
-        public User[] Users;
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public User[] Users { get; set; }
 
         #region Constructors
         public Room(int id, string code)
