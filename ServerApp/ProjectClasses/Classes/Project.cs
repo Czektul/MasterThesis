@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjectClasses.Classes
 {
+    [DataContractAttribute]
     public class Project
     {
-        public int Id;
-        public string Name;
-        public User[] Users;
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public User[] Users { get; set; }
 
         #region Constructors
         public Project(int id, string name)

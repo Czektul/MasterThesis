@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,31 +21,20 @@ namespace RESTLib
         public bool SendData<T>(string method, T dataToSend, bool isArray)
         {
             string data;
+            StringContent request;
             String url = Address + "/" + method.ToLower() + "/";
             try
             {
                 data = Newtonsoft.Json.JsonConvert.SerializeObject(dataToSend);
-
-                HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
-                if (!string.IsNullOrEmpty(data))
+                using (HttpClient client = new HttpClient())
                 {
-                    request.ContentType = "application/json";
-                    request.Method = "POST";
-
-                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    // HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+                    if (!string.IsNullOrEmpty(data))
                     {
-                        streamWriter.Write(data);
-                        streamWriter.Flush();
-                        streamWriter.Close();
-                    }
-                }
-
-                using (HttpWebResponse webresponse = request.GetResponse() as HttpWebResponse)
-                {
-                    using (StreamReader reader = new StreamReader(webresponse.GetResponseStream()))
-                    {
-                        string response = reader.ReadToEnd();
-                        return bool.Parse(response);
+                        //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        request = new StringContent(data, Encoding.UTF8, "application/json");
+                        var response = client.PostAsync(url, request).Result;
+                        var result = response.Content.ReadAsStringAsync();
                     }
                 }
             }
@@ -51,6 +42,7 @@ namespace RESTLib
             {
                 return false;
             }
+            return true;
         }
     }
 }

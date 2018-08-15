@@ -29,7 +29,7 @@ namespace ClientApp.Forms.UserForm
             tbLastName.Text = string.Empty;
             tbName.Text = string.Empty;
 
-            receiver = new Receiver("http://localhost:50042/api/values");
+            receiver = new Receiver("http://localhost:52435/RestService.svc/api");
             rooms = receiver.ReceiveData<Room>("room", new string[0], true);
             cbxRoom.DataSource = rooms;
             cbxRoom.DisplayMember = "Room.Id";
@@ -44,7 +44,7 @@ namespace ClientApp.Forms.UserForm
             tbFirstName.Text = user.FirstName;
             tbLastName.Text = user.LastName;
             tbName.Text = user.Name;
-            receiver = new Receiver("http://localhost:50042/api/values");
+            receiver = new Receiver("http://localhost:52435/RestService.svc/api");
             rooms = receiver.ReceiveData<Room>("room", new string[0], true);
             cbxRoom.Items.AddRange(rooms);
             cbxRoom.SelectedItem = user.Room;
@@ -53,7 +53,7 @@ namespace ClientApp.Forms.UserForm
 
         private void SaveChanges(object sender, EventArgs e)
         {
-            string url = "http://localhost:50042/api/values/";
+            string url = "http://localhost:52435/RestService.svc/api";
             string data = string.Empty;
             Sender poster = new Sender(url);
 
@@ -65,7 +65,7 @@ namespace ClientApp.Forms.UserForm
         }
         private void AddNew(object sender, EventArgs e)
         {
-            string url = "http://localhost:50042/api/values/";
+            string url = "http://localhost:52435/RestService.svc/api";
             string data = string.Empty;
             Sender poster = new Sender(url);
             User user = new User
@@ -76,7 +76,7 @@ namespace ClientApp.Forms.UserForm
                 Room = cbxRoom.SelectedValue as Room
             };
 
-            if(poster.SendData("user", user, false))
+            if(poster.SendData("add_user", user, false))
             {
                 MessageBox.Show("Poprawnie wysłano dane");
             

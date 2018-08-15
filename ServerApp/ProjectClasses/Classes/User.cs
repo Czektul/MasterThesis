@@ -4,17 +4,24 @@ using ProjectClasses.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjectClasses.Classes
 {
+    [DataContractAttribute]
     public class User
     {
-        public int Id;
-        public string Name;
-        public string FirstName;
-        public string LastName;
-        public Room Room;
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public string FirstName { get; set; }
+        [DataMember]
+        public string LastName { get; set; }
+        [DataMember]
+        public Room Room { get; set; }
 
         #region Constructors
         public User() { }

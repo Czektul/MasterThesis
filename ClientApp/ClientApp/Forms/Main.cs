@@ -27,7 +27,7 @@ namespace ClientApp
         public Main()
         {
             InitializeComponent();
-            receiver = new Receiver("http://localhost:50042/api/values");
+            receiver = new Receiver("http://localhost:52435/RestService.svc/api");
             users = new List<User>();
         }
 
