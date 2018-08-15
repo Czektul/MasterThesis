@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace ProjectClasses.Classes
 {
+    /// <summary>
+    /// Room class
+    /// </summary>
     [DataContractAttribute]
     public class Room
     {

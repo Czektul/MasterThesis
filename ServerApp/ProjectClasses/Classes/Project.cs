@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ProjectClasses.Classes
 {
+    /// <summary>
+    /// Project class
+    /// </summary>
     [DataContractAttribute]
     public class Project
     {

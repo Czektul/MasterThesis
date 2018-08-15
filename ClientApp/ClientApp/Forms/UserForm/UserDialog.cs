@@ -20,54 +20,66 @@ namespace ClientApp.Forms.UserForm
         public User user;
         public Room[] rooms;
         Receiver receiver;
+        Main main;
 
-        public UserDialog()
+        public UserDialog(Main main)
         {
             InitializeComponent();
+            this.main = main;
 
             tbFirstName.Text = string.Empty;
             tbLastName.Text = string.Empty;
             tbName.Text = string.Empty;
 
-            receiver = new Receiver("http://localhost:52435/RestService.svc/api");
+            receiver = new Receiver(Configuration.ServerAddress);
             rooms = receiver.ReceiveData<Room>("room", new string[0], true);
             cbxRoom.DataSource = rooms;
-            cbxRoom.DisplayMember = "Room.Id";
+            cbxRoom.DisplayMember = "Code";
+            btnDelete.Visible = false;
 
             this.button1.Click += new System.EventHandler(this.AddNew);
         }
-        public UserDialog(User user)
+        public UserDialog(User user, Main main)
         {
-            this.user = user;
             InitializeComponent();
+            this.main = main;
+            this.user = user;
 
             tbFirstName.Text = user.FirstName;
             tbLastName.Text = user.LastName;
             tbName.Text = user.Name;
-            receiver = new Receiver("http://localhost:52435/RestService.svc/api");
+            receiver = new Receiver(Configuration.ServerAddress);
             rooms = receiver.ReceiveData<Room>("room", new string[0], true);
-            cbxRoom.Items.AddRange(rooms);
-            cbxRoom.SelectedItem = user.Room;
+            cbxRoom.DataSource = rooms;
+            cbxRoom.DisplayMember = "Code";
+            cbxRoom.SelectedItem = rooms.FirstOrDefault(r => r.Id == user.Room.Id);
             this.button1.Click += new System.EventHandler(this.SaveChanges);
+            btnDelete.Visible = true;
         }
 
         private void SaveChanges(object sender, EventArgs e)
         {
-            string url = "http://localhost:52435/RestService.svc/api";
             string data = string.Empty;
-            Sender poster = new Sender(url);
+            Updater updater = new Updater(Configuration.ServerAddress);
 
             user.Name = tbName.Text;
             user.FirstName = tbFirstName.Text;
             user.LastName = tbLastName.Text;
             user.Room = cbxRoom.SelectedValue as Room;
+            if (updater.UpdateData("put_user", user, false))
+            {
+                MessageBox.Show("Poprawnie wysłano dane");
+                this.Close();
+                main.RefreshData();
+            }
+            else
+                MessageBox.Show("Błąd wysyłania danych");
 
         }
         private void AddNew(object sender, EventArgs e)
         {
-            string url = "http://localhost:52435/RestService.svc/api";
             string data = string.Empty;
-            Sender poster = new Sender(url);
+            Sender poster = new Sender(Configuration.ServerAddress);
             User user = new User
             {
                 Name = tbName.Text,
@@ -76,16 +88,36 @@ namespace ClientApp.Forms.UserForm
                 Room = cbxRoom.SelectedValue as Room
             };
 
-            if(poster.SendData("add_user", user, false))
+            if (poster.SendData("add_user", user, false))
             {
                 MessageBox.Show("Poprawnie wysłano dane");
-            
+                this.Close();
+                main.RefreshData();
             }
             else
-            {
                 MessageBox.Show("Błąd wysyłania danych");
-            }
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            Deleter deleter = new Deleter(Configuration.ServerAddress);
+            try
+            {
+                string[] ids = new string[1];
+                ids[0] = user.Id.ToString();
+
+                if (deleter.DeleterData("delete_user", ids, false))
+                {
+                    this.Close();
+                    main.RefreshData();
+                }
+                else
+                    MessageBox.Show("Błąd usuwania danych");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd usuwania danych");
+            }
+        }
     }
 }

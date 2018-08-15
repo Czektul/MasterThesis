@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace ProjectClasses.Classes
 {
+    /// <summary>
+    /// User class
+    /// </summary>
     [DataContractAttribute]
     public class User
     {

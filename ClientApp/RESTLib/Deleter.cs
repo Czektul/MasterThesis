@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RESTLib
 {
-    public class Sender
+    public class Deleter
     {
         public string Address { get; }
 
@@ -18,34 +18,33 @@ namespace RESTLib
         /// Basic constructor. Address is API address.
         /// </summary>
         /// <param name="adress"></param>
-        public Sender(string adress)
+        public Deleter(string adress)
         {
             Address = adress;
         }
+
         /// <summary>
-        /// Send data to server by API POST method. Returns true if everything is ok.
+        /// Delete existing data from server by DELETE API method. Returns true if everything is ok.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
-        /// <param name="dataToSend"></param>
+        /// <param name="dataToDelete"></param>
         /// <param name="isArray"></param>
         /// <returns></returns>
-        public bool SendData<T>(string method, T dataToSend, bool isArray)
+        public bool DeleterData(string method, string[] parameters, bool isArray)
         {
-            string data;
-            StringContent request;
             String url = Address + "/" + method.ToLower() + "/";
+
+            foreach (string param in parameters)
+                url = url + param + "/";
+            url = url.Remove(url.Length - 1);
             try
             {
-                data = Newtonsoft.Json.JsonConvert.SerializeObject(dataToSend);
                 using (HttpClient client = new HttpClient())
                 {
-                    // HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
-                    if (!string.IsNullOrEmpty(data))
+                    if (!string.IsNullOrEmpty(url))
                     {
-                        //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        request = new StringContent(data, Encoding.UTF8, "application/json");
-                        var response = client.PostAsync(url, request).Result;
+                        var response = client.DeleteAsync(url).Result;
                         var result = response.Content.ReadAsStringAsync();
                     }
                 }

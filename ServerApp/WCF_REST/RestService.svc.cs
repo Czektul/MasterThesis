@@ -39,7 +39,7 @@ namespace WCF_REST
         }
         public string GetUsers()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(logic.GetUser());
+            return Newtonsoft.Json.JsonConvert.SerializeObject(users);
         }
 
         public string GetProject(string id)
@@ -63,59 +63,178 @@ namespace WCF_REST
         }
 
         #endregion
+
         #region POST
 
         public bool AddUser(User user)
         {
-            User newUser;
-            if (user != null)
-            { 
-                try
-                {
-                  //  newUser = ((User)Newtonsoft.Json.JsonConvert.DeserializeObject<User>(user));
+            try
+            {
+                if (user != null)
                     if (!logic.AddUser(user))
-                    {
                         return false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-                return true;
             }
-            else
+            catch(Exception ex)
             {
                 return false;
             }
+            return true;
         }
 
-        public void AddRoom(string room)
+        public bool AddRoom(Room room)
         {
-
+            try
+            {
+                if (room != null)
+                    if (!logic.AddRoom(room))
+                        return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void AddProject(string project)
+        public bool AddProject(Project project)
         {
-
+            try
+            {
+                if (project != null)
+                    if (!logic.AddProject(project))
+                        return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         #endregion
+
+        #region PUT
+
+        public bool UpdateUser(User user)
+        {
+            try
+            {
+                if (user != null)
+                {
+                    if (!logic.UpdateUser(user))
+                        return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool UpdateRoom(Room room)
+        {
+            try
+            {
+                if (room != null)
+                {
+                    if (!logic.UpdateRoom(room))
+                        return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool UpdateProject(Project project)
+        {
+            try
+            {
+                if (project != null)
+                {
+                    if (!logic.UpdateProject(project))
+                        return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+
         #region DELETE
 
-        public void DeleteUser(string userId)
+        public bool DeleteUser(string userId)
         {
-
+            try
+            {
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    if (!logic.DeleteUser(userId))
+                        return false;
+                }
+                else
+                    return false;
+                
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void DeleteRoom(string roomId)
+        public bool DeleteRoom(string roomId)
         {
+            try
+            {
+                if (!string.IsNullOrEmpty(roomId))
+                {
+                    if (!logic.DeleteRoom(roomId))
+                        return false;
+                }
+                else
+                    return false;
 
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public void DeleteProject(string projectId)
+        public bool DeleteProject(string projectId)
         {
+            try
+            {
+                if (!string.IsNullOrEmpty(projectId))
+                {
+                    if (!logic.DeleteProject(projectId))
+                        return false;
+                }
+                else
+                    return false;
 
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
         }
 
         #endregion

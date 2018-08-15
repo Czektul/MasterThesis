@@ -205,10 +205,8 @@ namespace ServerApp.Controllers
             }
         }
 
-
-        public bool AddUser(User newuser)
+        public bool AddUser(User user)
         {
-            User user = newuser;
             try
             {
                 using (SqlConnection connection = new SqlConnection())
@@ -242,5 +240,41 @@ namespace ServerApp.Controllers
             }
         }
 
+        public bool UpdateUser(User user)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection())
+                {
+                    connection.ConnectionString = Configuration.ConnectionString;
+                    connection.Open();
+
+                    SqlCommand command = connection.CreateCommand();
+                    command.CommandType = CommandType.Text;
+
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandText = string.Format("UPDATE Users SET [Name] = '{0}', " +
+                            "[FirstName] = '{1}', [LastName] = '{2}', [RoomId] = {3}  WHERE [Id] = {4};", 
+                            user.Name, user.FirstName, user.LastName, user.Room.Id, user.Id);
+                        command.ExecuteNonQuery();
+
+                        transaction.Commit();
+                    }
+
+                    connection.Close();
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

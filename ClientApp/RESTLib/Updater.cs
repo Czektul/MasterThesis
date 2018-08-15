@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RESTLib
 {
-    public class Sender
+    public class Updater
     {
         public string Address { get; }
 
@@ -18,19 +18,20 @@ namespace RESTLib
         /// Basic constructor. Address is API address.
         /// </summary>
         /// <param name="adress"></param>
-        public Sender(string adress)
+        public Updater(string adress)
         {
             Address = adress;
         }
+
         /// <summary>
-        /// Send data to server by API POST method. Returns true if everything is ok.
+        /// Update existing data by sending it by API method. Returns true if everything is ok.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
         /// <param name="dataToSend"></param>
         /// <param name="isArray"></param>
         /// <returns></returns>
-        public bool SendData<T>(string method, T dataToSend, bool isArray)
+        public bool UpdateData<T>(string method, T dataToSend, bool isArray)
         {
             string data;
             StringContent request;
@@ -40,12 +41,10 @@ namespace RESTLib
                 data = Newtonsoft.Json.JsonConvert.SerializeObject(dataToSend);
                 using (HttpClient client = new HttpClient())
                 {
-                    // HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
                     if (!string.IsNullOrEmpty(data))
                     {
-                        //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         request = new StringContent(data, Encoding.UTF8, "application/json");
-                        var response = client.PostAsync(url, request).Result;
+                        var response = client.PutAsync(url, request).Result;
                         var result = response.Content.ReadAsStringAsync();
                     }
                 }

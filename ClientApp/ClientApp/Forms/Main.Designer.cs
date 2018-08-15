@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.btnGetUsers = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.table1 = new XPTable.Models.Table();
             this.columnModel1 = new XPTable.Models.ColumnModel();
             this.gcId = new XPTable.Models.TextColumn();
@@ -40,8 +39,10 @@
             this.gcLastName = new XPTable.Models.TextColumn();
             this.tableModel1 = new XPTable.Models.TableModel();
             this.btnAddUser = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
+            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnEditUser = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGetUsers
@@ -61,16 +62,12 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // form1BindingSource
-            // 
-            this.form1BindingSource.DataSource = typeof(ClientApp.Main);
-            // 
             // table1
             // 
             this.table1.ColumnModel = this.columnModel1;
             this.table1.Location = new System.Drawing.Point(12, 41);
             this.table1.Name = "table1";
-            this.table1.Size = new System.Drawing.Size(438, 397);
+            this.table1.Size = new System.Drawing.Size(415, 397);
             this.table1.TabIndex = 8;
             this.table1.TableModel = this.tableModel1;
             this.table1.Text = "table1";
@@ -102,7 +99,7 @@
             // 
             // btnAddUser
             // 
-            this.btnAddUser.Location = new System.Drawing.Point(456, 14);
+            this.btnAddUser.Location = new System.Drawing.Point(212, 12);
             this.btnAddUser.Name = "btnAddUser";
             this.btnAddUser.Size = new System.Drawing.Size(98, 23);
             this.btnAddUser.TabIndex = 9;
@@ -110,19 +107,34 @@
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
+            // form1BindingSource
+            // 
+            this.form1BindingSource.DataSource = typeof(ClientApp.Main);
+            // 
+            // btnEditUser
+            // 
+            this.btnEditUser.Location = new System.Drawing.Point(316, 12);
+            this.btnEditUser.Name = "btnEditUser";
+            this.btnEditUser.Size = new System.Drawing.Size(111, 23);
+            this.btnEditUser.TabIndex = 10;
+            this.btnEditUser.Text = "Edytuj użytkownika";
+            this.btnEditUser.UseVisualStyleBackColor = true;
+            this.btnEditUser.Click += new System.EventHandler(this.btnEditUser_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(778, 450);
+            this.Controls.Add(this.btnEditUser);
             this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.table1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnGetUsers);
             this.Name = "Main";
             this.Text = "PRACA MAGISTERSKA";
-            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +153,7 @@
         private XPTable.Models.TextColumn gcFirstName;
         private XPTable.Models.TextColumn gcLastName;
         private System.Windows.Forms.Button btnAddUser;
+        private System.Windows.Forms.Button btnEditUser;
     }
 }
 

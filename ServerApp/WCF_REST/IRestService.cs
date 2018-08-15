@@ -20,7 +20,7 @@ namespace WCF_REST
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/user/")]
         string GetUsers();
 
@@ -28,7 +28,7 @@ namespace WCF_REST
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/user/{id}")]
         string GetUser(string id);
 
@@ -36,7 +36,7 @@ namespace WCF_REST
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/project/{id}")]
         string GetProject(string id);
 
@@ -44,7 +44,7 @@ namespace WCF_REST
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/project/")]
         string GetProjects();
 
@@ -52,7 +52,7 @@ namespace WCF_REST
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/room/{id}")]
         string GetRoom(string id);
 
@@ -60,7 +60,7 @@ namespace WCF_REST
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Wrapped,
+            BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "api/room/")]
         string GetRooms();
 
@@ -79,17 +79,44 @@ namespace WCF_REST
         [WebInvoke(Method = "POST",
           ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-          BodyStyle = WebMessageBodyStyle.Wrapped,
-          UriTemplate = "api/room/")]
-        void AddRoom(string room);
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/add_room/")]
+        bool AddRoom(Room room);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
           ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-          BodyStyle = WebMessageBodyStyle.Wrapped,
-          UriTemplate = "api/project/")]
-        void AddProject(string project);
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/add_project/")]
+        bool AddProject(Project project);
+
+        #endregion
+
+        #region PUT
+        [OperationContract]
+        [WebInvoke(Method = "PUT",
+          ResponseFormat = WebMessageFormat.Json,
+          RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/put_user/")]
+        bool UpdateUser(User user);
+
+        [OperationContract]
+        [WebInvoke(Method = "PUT",
+          ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/put_room/")]
+        bool UpdateRoom(Room room);
+
+        [OperationContract]
+        [WebInvoke(Method = "PUT",
+          ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/put_project/")]
+        bool UpdateProject(Project project);
 
         #endregion
 
@@ -99,25 +126,25 @@ namespace WCF_REST
         [WebInvoke(Method = "DELETE",
           ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-          BodyStyle = WebMessageBodyStyle.Wrapped,
-          UriTemplate = "api/user/")]
-        void DeleteUser(string userId);
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/delete_user/{userId}")]
+        bool DeleteUser(string userId);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE",
           ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-          BodyStyle = WebMessageBodyStyle.Wrapped,
-          UriTemplate = "api/room/")]
-        void DeleteRoom(string roomId);
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/delete_room/{roomId}")]
+        bool DeleteRoom(string roomId);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE",
           ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
-          BodyStyle = WebMessageBodyStyle.Wrapped,
-          UriTemplate = "api/project/")]
-        void DeleteProject(string projectId);
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/delete_project/{projectId}")]
+        bool DeleteProject(string projectId);
 
         #endregion
 
