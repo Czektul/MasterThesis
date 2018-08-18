@@ -1,7 +1,9 @@
 ﻿using ProjectClasses.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
@@ -109,6 +111,22 @@ namespace WCF_REST
                 return false;
             }
             return true;
+        }
+
+        public bool AddFile(Stream fileStream, string filename)
+        {
+            byte[] bytearray;
+            FileStream fileToupload = new FileStream("D:\\FileUpload\\"+ filename, FileMode.Create);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                fileStream.CopyTo(ms);
+                bytearray = ms.ToArray();
+            }
+
+            fileToupload.Write(bytearray, 0, bytearray.Length);
+            fileToupload.Close();
+            fileToupload.Dispose();
+            return false;
         }
 
         #endregion

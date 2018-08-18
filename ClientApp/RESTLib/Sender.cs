@@ -46,6 +46,8 @@ namespace RESTLib
                         //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         request = new StringContent(data, Encoding.UTF8, "application/json");
                         var response = client.PostAsync(url, request).Result;
+                        if (!response.IsSuccessStatusCode)
+                            throw new Exception(string.Format("Błąd wysyłania danych - Kod statusu: {0}", response.StatusCode.ToString()));
                         var result = response.Content.ReadAsStringAsync();
                     }
                 }
@@ -55,6 +57,36 @@ namespace RESTLib
                 return false;
             }
             return true;
+        }
+
+        public bool SendFileAsStream(string method, Stream stream, string filename)
+        {
+            byte[] bytearray;
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    bytearray = ms.ToArray();
+                }
+                String url = Address + "/" + method.ToLower() + "/" + filename;
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "text/plain";
+                Stream serverStream = request.GetRequestStream();
+                serverStream.Write(bytearray, 0, bytearray.Length);
+                serverStream.Close();
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    int statusCode = (int) response.StatusCode;
+                    StreamReader reader = new StreamReader(response.GetResponseStream());
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

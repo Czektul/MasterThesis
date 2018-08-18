@@ -41,6 +41,7 @@
             this.btnAddUser = new System.Windows.Forms.Button();
             this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnEditUser = new System.Windows.Forms.Button();
+            this.btnFIle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             this.SuspendLayout();
@@ -121,11 +122,22 @@
             this.btnEditUser.UseVisualStyleBackColor = true;
             this.btnEditUser.Click += new System.EventHandler(this.btnEditUser_Click);
             // 
+            // btnFIle
+            // 
+            this.btnFIle.Location = new System.Drawing.Point(434, 41);
+            this.btnFIle.Name = "btnFIle";
+            this.btnFIle.Size = new System.Drawing.Size(75, 23);
+            this.btnFIle.TabIndex = 11;
+            this.btnFIle.Text = "Wybierz plik";
+            this.btnFIle.UseVisualStyleBackColor = true;
+            this.btnFIle.Click += new System.EventHandler(this.btnFIle_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 450);
+            this.Controls.Add(this.btnFIle);
             this.Controls.Add(this.btnEditUser);
             this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.table1);
@@ -154,6 +166,7 @@
         private XPTable.Models.TextColumn gcLastName;
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Button btnEditUser;
+        private System.Windows.Forms.Button btnFIle;
     }
 }
 
