@@ -46,6 +46,8 @@ namespace RESTLib
                         //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         request = new StringContent(data, Encoding.UTF8, "application/json");
                         var response = client.PostAsync(url, request).Result;
+                        if (!response.IsSuccessStatusCode)
+                            throw new Exception(string.Format("Błąd wysyłania danych - Kod statusu: {0}", response.StatusCode.ToString()));
                         var result = response.Content.ReadAsStringAsync();
                     }
                 }
@@ -55,6 +57,62 @@ namespace RESTLib
                 return false;
             }
             return true;
+        }
+
+        public bool SendFileAsStream(string method, Stream stream, string filename)
+        {
+            int maxData = 0;
+            byte[] bytearray;
+            bool messageEnd = false;
+            byte[] currentBytes;
+            string data = string.Empty;
+            StringContent request;
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    bytearray = ms.ToArray();
+                }
+                for (int i = 0; i < bytearray.Length; i=i+1000)
+                {
+
+                    if (i + 1000 > bytearray.Length)
+                    {
+                        maxData = bytearray.Length - i;
+                        messageEnd = true;
+                    }
+                    else
+                    {
+                        maxData = 1000;
+                        messageEnd = false;
+                    }
+
+                    currentBytes = new byte[maxData];
+                    Array.Copy(bytearray, i, currentBytes, 0, maxData);
+                    data = Newtonsoft.Json.JsonConvert.SerializeObject(currentBytes);
+                    string url = Address + "/" + method.ToLower() + "/" + filename+ "/" + messageEnd.ToString();
+                    using (HttpClient client = new HttpClient())
+                    {
+                        // HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+                        if (!string.IsNullOrEmpty(data))
+                        {
+                            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                            request = new StringContent(data, Encoding.UTF8, "application/json");
+                            var response = client.PostAsync(url, request).Result;
+                            if (!response.IsSuccessStatusCode)
+                                throw new Exception(string.Format("Błąd wysyłania danych - Kod statusu: {0}", response.StatusCode.ToString()));
+                            var result = response.Content.ReadAsStringAsync();
+                        }
+                    }
+
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

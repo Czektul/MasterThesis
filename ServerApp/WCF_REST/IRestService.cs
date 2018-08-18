@@ -1,7 +1,9 @@
 ﻿using ProjectClasses.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
@@ -90,6 +92,16 @@ namespace WCF_REST
             BodyStyle = WebMessageBodyStyle.Bare,
           UriTemplate = "api/add_project/")]
         bool AddProject(Project project);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+          ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare,
+          UriTemplate = "api/add_file/{filename}/{messageEnd}")]
+        bool AddFile(string data, string filename, string messageEnd);
+
+
 
         #endregion
 

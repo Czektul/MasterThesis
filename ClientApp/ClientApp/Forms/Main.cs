@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,6 +27,7 @@ namespace ClientApp
         private BindingSource bindingSource1 = new BindingSource();
 
         Receiver receiver;
+        Sender sendFile;
         User selectedUser;
 
         public Main()
@@ -136,5 +138,39 @@ namespace ClientApp
             }
         }
         #endregion
+
+        private void btnFIle_Click(object sender, EventArgs e)
+        {
+            string path;
+            OpenFileDialog dialog = new OpenFileDialog();
+            byte[] buffer;
+            sendFile = new Sender(Configuration.ServerAddress);
+            try
+            {
+
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    path = dialog.InitialDirectory + dialog.FileName;
+                }
+                else return;
+
+                using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    
+                    if (sendFile.SendFileAsStream("add_file", fs, dialog.SafeFileName))
+                    {
+                        MessageBox.Show("Wysłano dane");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Bład wysylania pliku");
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
     }
 }
