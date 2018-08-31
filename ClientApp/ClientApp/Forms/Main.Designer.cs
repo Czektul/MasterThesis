@@ -39,9 +39,9 @@
             this.gcLastName = new XPTable.Models.TextColumn();
             this.tableModel1 = new XPTable.Models.TableModel();
             this.btnAddUser = new System.Windows.Forms.Button();
-            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnEditUser = new System.Windows.Forms.Button();
             this.btnFIle = new System.Windows.Forms.Button();
+            this.form1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.form1BindingSource)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +52,7 @@
             this.btnGetUsers.Name = "btnGetUsers";
             this.btnGetUsers.Size = new System.Drawing.Size(88, 23);
             this.btnGetUsers.TabIndex = 0;
-            this.btnGetUsers.Text = "PobierzDane";
+            this.btnGetUsers.Text = "Pobierz dane";
             this.btnGetUsers.UseVisualStyleBackColor = true;
             this.btnGetUsers.Click += new System.EventHandler(this.btnGetUsers_Click);
             // 
@@ -108,10 +108,6 @@
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
-            // form1BindingSource
-            // 
-            this.form1BindingSource.DataSource = typeof(ClientApp.Main);
-            // 
             // btnEditUser
             // 
             this.btnEditUser.Location = new System.Drawing.Point(316, 12);
@@ -124,19 +120,23 @@
             // 
             // btnFIle
             // 
-            this.btnFIle.Location = new System.Drawing.Point(434, 41);
+            this.btnFIle.Location = new System.Drawing.Point(433, 41);
             this.btnFIle.Name = "btnFIle";
             this.btnFIle.Size = new System.Drawing.Size(75, 23);
             this.btnFIle.TabIndex = 11;
-            this.btnFIle.Text = "Wybierz plik";
+            this.btnFIle.Text = "Wślij plik";
             this.btnFIle.UseVisualStyleBackColor = true;
             this.btnFIle.Click += new System.EventHandler(this.btnFIle_Click);
+            // 
+            // form1BindingSource
+            // 
+            this.form1BindingSource.DataSource = typeof(ClientApp.Main);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 450);
+            this.ClientSize = new System.Drawing.Size(530, 450);
             this.Controls.Add(this.btnFIle);
             this.Controls.Add(this.btnEditUser);
             this.Controls.Add(this.btnAddUser);

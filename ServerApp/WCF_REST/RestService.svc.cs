@@ -42,6 +42,7 @@ namespace WCF_REST
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(users.FirstOrDefault(u => u.GetId() == int.Parse(id)));
         }
+
         public string GetUsers()
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(users);
@@ -223,7 +224,6 @@ namespace WCF_REST
         }
 
         #endregion
-
 
         #region DELETE
 

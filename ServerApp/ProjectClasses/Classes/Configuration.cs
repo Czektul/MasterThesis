@@ -19,7 +19,7 @@ namespace ProjectClasses.Classes
         /// <summary>
         /// Database connection string.
         /// </summary>
-        public static string ConnectionString = @"Server=.;Database=TestDB;User ID=sa;Password=Agilero!;";
+        public static string ConnectionString = @"Server=.;Database=REST_System;User ID=sa;Password=TestPass!;";
 
     }
 }

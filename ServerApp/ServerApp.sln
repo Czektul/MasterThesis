@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerApp", "ServerApp\ServerApp\ServerApp.csproj", "{6536CC27-9937-4FEE-97E2-81EB91D0C96C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RESTLib", "RESTLib\RESTLib.csproj", "{13160B78-FBC2-4751-94D7-8D8E219F721F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectClasses", "ProjectClasses\ProjectClasses.csproj", "{2BA54A61-CB0B-4926-87AA-52DE1DF99350}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCF_REST", "WCF_REST\WCF_REST.csproj", "{C5F76D5C-2E72-4E0D-AFC0-D9CA607E234A}"
@@ -17,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6536CC27-9937-4FEE-97E2-81EB91D0C96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6536CC27-9937-4FEE-97E2-81EB91D0C96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6536CC27-9937-4FEE-97E2-81EB91D0C96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6536CC27-9937-4FEE-97E2-81EB91D0C96C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13160B78-FBC2-4751-94D7-8D8E219F721F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13160B78-FBC2-4751-94D7-8D8E219F721F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13160B78-FBC2-4751-94D7-8D8E219F721F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13160B78-FBC2-4751-94D7-8D8E219F721F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2BA54A61-CB0B-4926-87AA-52DE1DF99350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2BA54A61-CB0B-4926-87AA-52DE1DF99350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BA54A61-CB0B-4926-87AA-52DE1DF99350}.Release|Any CPU.ActiveCfg = Release|Any CPU

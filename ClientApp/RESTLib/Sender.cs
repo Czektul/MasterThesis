@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -28,10 +29,12 @@ namespace RESTLib
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
         /// <param name="dataToSend"></param>
-        /// <param name="isArray"></param>
         /// <returns></returns>
-        public bool SendData<T>(string method, T dataToSend, bool isArray)
+        public bool SendData<T>(string method, T dataToSend)
         {
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             string data;
             StringContent request;
             String url = Address + "/" + method.ToLower() + "/";
@@ -56,11 +59,15 @@ namespace RESTLib
             {
                 return false;
             }
+            sw.Stop();
             return true;
         }
 
         public bool SendFileAsStream(string method, Stream stream, string filename)
         {
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             int maxData = 0;
             byte[] bytearray;
             bool messageEnd = false;
@@ -94,10 +101,8 @@ namespace RESTLib
                     string url = Address + "/" + method.ToLower() + "/" + filename+ "/" + messageEnd.ToString();
                     using (HttpClient client = new HttpClient())
                     {
-                        // HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
                         if (!string.IsNullOrEmpty(data))
                         {
-                            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                             request = new StringContent(data, Encoding.UTF8, "application/json");
                             var response = client.PostAsync(url, request).Result;
                             if (!response.IsSuccessStatusCode)
@@ -107,6 +112,7 @@ namespace RESTLib
                     }
 
                 }
+                sw.Stop();
                 return true;
             }
             catch(Exception ex)

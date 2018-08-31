@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,10 +30,12 @@ namespace RESTLib
         /// <typeparam name="T"></typeparam>
         /// <param name="method"></param>
         /// <param name="dataToDelete"></param>
-        /// <param name="isArray"></param>
         /// <returns></returns>
-        public bool DeleterData(string method, string[] parameters, bool isArray)
+        public bool DeleteData(string method, string[] parameters)
         {
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             String url = Address + "/" + method.ToLower() + "/";
 
             foreach (string param in parameters)
@@ -53,6 +56,7 @@ namespace RESTLib
             {
                 return false;
             }
+            sw.Stop();
             return true;
         }
     }

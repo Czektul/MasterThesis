@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -30,6 +31,9 @@ namespace RESTLib
         /// <returns></returns>
         public T[] ReceiveData<T>(string method, string[] parameters, bool isArray)
         {
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             List<T> values;
             T value;
             String url = Address + "/" + method.ToLower() + "/";
@@ -49,6 +53,7 @@ namespace RESTLib
                     json_data = json_data.Replace(@"\", "");
                 }
                 catch (Exception) { }
+                sw.Stop();
                 if (isArray)
                 {
                     values = ((T[])Newtonsoft.Json.JsonConvert.DeserializeObject<T[]>(json_data)).ToList();

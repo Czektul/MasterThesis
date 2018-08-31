@@ -51,8 +51,7 @@ namespace ClientApp
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             UserDialog dialog;
-                dialog = new UserDialog(this);
-                dialog = new UserDialog(selectedUser, this);
+            dialog = new UserDialog(this);
             dialog.Show();
         }
         private void btnEditUser_Click(object sender, EventArgs e)

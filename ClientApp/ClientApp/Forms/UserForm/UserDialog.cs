@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -66,14 +67,14 @@ namespace ClientApp.Forms.UserForm
             user.FirstName = tbFirstName.Text;
             user.LastName = tbLastName.Text;
             user.Room = cbxRoom.SelectedValue as Room;
-            if (updater.UpdateData("put_user", user, false))
+            if (updater.UpdateData("put_user", user))
             {
-                MessageBox.Show("Poprawnie wysłano dane");
+                MessageBox.Show("Poprawnie edytowano dane");
                 this.Close();
                 main.RefreshData();
             }
             else
-                MessageBox.Show("Błąd wysyłania danych");
+                MessageBox.Show("Błąd edycji danych");
 
         }
         private void AddNew(object sender, EventArgs e)
@@ -88,14 +89,14 @@ namespace ClientApp.Forms.UserForm
                 Room = cbxRoom.SelectedValue as Room
             };
 
-            if (poster.SendData("add_user", user, false))
+            if (poster.SendData("add_user", user))
             {
-                MessageBox.Show("Poprawnie wysłano dane");
+                MessageBox.Show("Poprawnie dodano dane");
                 this.Close();
                 main.RefreshData();
             }
             else
-                MessageBox.Show("Błąd wysyłania danych");
+                MessageBox.Show("Błąd dodawania danych");
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -106,7 +107,7 @@ namespace ClientApp.Forms.UserForm
                 string[] ids = new string[1];
                 ids[0] = user.Id.ToString();
 
-                if (deleter.DeleterData("delete_user", ids, false))
+                if (deleter.DeleteData("delete_user", ids))
                 {
                     this.Close();
                     main.RefreshData();
