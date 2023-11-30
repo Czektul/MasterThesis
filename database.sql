@@ -24,7 +24,6 @@ CREATE TABLE ProjectsUsers(
 
 
 INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('mkowalski', 'Marek', 'Kowalski', 1);
-INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('jkoziol', 'Joanna', 'Kozioł', 1);
 INSERT INTO Users (Name, FirstName, LastName, RoomId) VALUES ('lmakowski', 'Leszek', 'Makowski', 2);
 
 INSERT INTO Rooms (Number) VALUES ('1');
@@ -37,3 +36,6 @@ INSERT INTO ProjectsUsers(ProjectId, UserId) VALUES (1, 1);
 INSERT INTO ProjectsUsers(ProjectId, UserId) VALUES (1, 2);
 INSERT INTO ProjectsUsers(ProjectId, UserId) VALUES (1, 3);
 INSERT INTO ProjectsUsers(ProjectId, UserId) VALUES (2, 2);
+
+
+drop table ProjectsUsers;
